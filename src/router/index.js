@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/home/index'
 import Blog from '@/components/blog/index'
+import Header from '@/components/header/header'
 import CommentPost from '@/components/comment/commentPost'
 import CommentList from '@/components/comment/commentList'
 import About from '@/components/about'
@@ -24,9 +25,9 @@ export default new Router({
       component: Blog,
     },
     {
-      path: '/commentPost',
-      name: 'CommentPost',
-      component: CommentPost,
+      path: '/Header',
+      name: 'Header',
+      component: Header,
     },
     {
       path: '/commentList',
