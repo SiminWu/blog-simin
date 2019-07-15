@@ -3,24 +3,24 @@
     <div class="nav">
       <transition name="ul">
         <ul v-if="show" class="ul-box">
-          <li>
-            <a href="#" class="actived">网站首页</a>
-          </li>
-          <li>
-            <a href="#">公司案例</a>
-          </li>
-          <li>
-            <a href="#">公司相册</a>
-          </li>
-          <li>
-            <a href="#">团队博客</a>
-          </li>
-          <li>
-            <a href="#">关于我们</a>
+          <li v-for="(item,index) in navList" :key='index' @click="handelChooseItem(index)">
+            <a :href="item.name" :class="{'actived':chooseNav===index}">{{item.name}}</a>
           </li>
         </ul>
       </transition>
       <img v-if="imgShow" src="../../assets/menu-logo.png" @click="handelOpenMenu" />
+    </div>
+    <div>
+      <div class="blog-item">
+       <div class="item-main">
+         <div>前后端分离....</div>
+         <div class="left-top"></div>
+         <div class="right-top"></div>
+         <div>详情</div>
+       </div>
+       <img src="../../../static/blog/me.jpg" alt="">
+
+      </div>
     </div>
   </div>
 </template>
@@ -28,8 +28,27 @@
 export default {
   data() {
     return {
+      imgShow:true,
       show: true,
       screenWidth:0,
+      timer : false,//计时器
+      chooseNav:0,//当前选的第几项目
+      navList:[{
+        name:'首页',
+        url:"#"
+      },{
+        name:'项目',
+        url:"#"
+      },{
+        name:'案例',
+        url:"#"
+      },{
+        name:'分享',
+        url:"#"
+      },{
+        name:'关于我',
+        url:"#"
+      }]
     };
   },
   mounted() {
@@ -60,22 +79,27 @@ export default {
     }
   },
   methods: {
+    // 切换菜单
+    handelChooseItem(num){
+      this.chooseNav = num;
+    },
     // 打开菜单
     handelOpenMenu() {
-      this.show = !this.show;
+      // this.show = !this.show;
       console.log("=====");
     }
   }
 };
 </script>
 
-<style>
+<style lang="less" scoped>
 body {
   margin: 0;
   padding: 0;
 }
 
 .nav {
+  box-shadow: 0px 0px 5px #ccc;
   position: relative;
   background-color: #fff;
   height: 78px;
@@ -159,6 +183,37 @@ body {
   .nav ul li a:hover {
     background-color: #6e6e6e;
     color: #fff;
+  }
+}
+// 模糊图片
+
+.blog-item{
+  width: 20%;
+  position: relative;
+  overflow: hidden;
+  .item-main{
+    font-size: 14px;
+    position: absolute;
+    z-index: 1;
+    color: white;
+    height: 250px;
+    width: 100%;
+    background: #150e0e5c;
+    overflow: hidden;
+  }
+  img{
+    width: 100%;
+    transition: .3s ease-in-out;
+     filter: blur(0);
+    -webkit-filter: blur(0);
+  }
+  &:hover{
+    img{
+      transform: scale(1.3);
+       filter: blur(3px);
+       -webkit-filter: blur(3px);
+    }
+   
   }
 }
 </style>
